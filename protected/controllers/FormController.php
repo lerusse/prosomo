@@ -4,7 +4,8 @@ class FormController extends Controller
 {
 	public function actionIndex()
 	{
-		$this->render('index');
+		$countries=Countries::list();
+		$this->render('index', ["countries"=>$countries]);
 	}
 
 	// Uncomment the following methods and override them if needed
@@ -21,7 +22,7 @@ class FormController extends Controller
 		);
 	}
 
-	public function actions()
+	public function actions()registrations_FK
 	{
 		// return external action classes, e.g.:
 		return array(

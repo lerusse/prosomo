@@ -11,7 +11,7 @@
 	<!--[if lt IE 8]>
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection">
 	<![endif]-->
-
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css">
 
@@ -30,8 +30,8 @@
 		<?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
 				array('label'=>'Accueil', 'url'=>array('/site/index')),
-				array('label'=>'Formulaire de contact', 'url'=>array('/form/index', 'view'=>'about')),
-				array('label'=>'Administration', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
+				array('label'=>'Formulaire de contact', 'url'=>array('/registrations/create')),
+				array('label'=>'Administration', 'url'=>array('/registrations/index'), 'visible'=>!Yii::app()->user->isGuest),
 				array('label'=>'Se connecter', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),				
 				array('label'=>'Se déconnecter', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),
