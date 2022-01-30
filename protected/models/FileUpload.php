@@ -21,7 +21,7 @@ class FileUpload extends CFormModel
 		return array(  
 			array('sumittedFile', 'file', 
 								'types'=>'csv',
-								'maxSize'=>1024 * 1024 *50, // 10MB
+								'maxSize'=>1024 * 1024 *50,
 								'tooLarge'=>'Le fichier est supérieur à 10MB. Prière de choisir un fichier de taille approrié.',
 								'allowEmpty' => false
 							 ),

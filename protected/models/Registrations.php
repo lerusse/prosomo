@@ -15,9 +15,11 @@
  * @property string $firstcomment
  * @property string $postalcode
  * @property string $secondcomment
+ * @property string $relatedcountry
  */
 class Registrations extends CActiveRecord
 {
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -38,11 +40,11 @@ class Registrations extends CActiveRecord
 			array('lastname, fisrtname', 'length', 'max'=>30),
 			array('email, town, province', 'length', 'max'=>50),
 			array('phone', 'length', 'max'=>15),
-			array('country', 'length', 'max'=>2),
+			array('country', 'length', 'max'=>50),
 			array('firstcomment, secondcomment', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, lastname, fisrtname, email, phone, town, province, country, firstcomment, secondcomment', 'safe', 'on'=>'search'),
+			array(' lastname, fisrtname, email', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -54,7 +56,8 @@ class Registrations extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-		);
+            'relatedcountry'=>array(self::HAS_ONE, 'Countries', 'id'),
+        );
 	}
 
 	/**
@@ -63,17 +66,17 @@ class Registrations extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'lastname' => 'Lastname',
-			'fisrtname' => 'Fisrtname',
-			'email' => 'Email',
-			'phone' => 'Phone',
-			'town' => 'Town',
+			'id' => 'Numero',
+			'lastname' => 'Prénom',
+			'fisrtname' => 'Nom',
+			'email' => 'Courriel',
+			'phone' => 'Téléphone',
+			'town' => 'Ville',
 			'province' => 'Province',
 			'postalcode' => 'Code Postal',
-			'country' => 'Country',
-			'firstcomment' => 'Firstcomment',
-			'secondcomment' => 'Secondcomment',
+			'country' => 'Pays',
+			'firstcomment' => 'Commentaire 1',
+			'secondcomment' => 'Commentaire 2',
 		);
 	}
 
@@ -96,19 +99,64 @@ class Registrations extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		// $criteria->compare('id',$this->id);
+		// $criteria->with=array('relatedcountry');
+		$criteria->with=array('relatedcountry'=> array('select'=>'nicename','together'=>true));
 		$criteria->compare('lastname',$this->lastname,true);
 		$criteria->compare('fisrtname',$this->fisrtname,true);
-		// $criteria->compare('email',$this->email,true);
+		$criteria->compare('email',$this->email,true);
+		$criteria->compare('country',$this->relatedcountry,true);
 		// $criteria->compare('phone',$this->phone,true);
-		$criteria->compare('town',$this->town,true);
-		$criteria->compare('province',$this->province,true);
-		$criteria->compare('country',$this->country,true);
+		// $criteria->compare('town',$this->town,true);
+		// $criteria->compare('province',$this->province,true);
+		// $relations=$this->relations(); var_dump($relations['']);
+		// var_dump($this);
+		// $relations=$this->relations(); var_dump($this->relatedcountry); die();
+		
+
 		// $criteria->compare('firstcomment',$this->firstcomment,true);
 		// $criteria->compare('secondcomment',$this->secondcomment,true);
-
+		$sort = new CSort;
+		$sort->attributes = array(
+		'lastname',
+		'fisrtname',
+		'town',
+		'province',
+		'country' => array(
+		'asc' => 'country',
+		'desc' => 'country DESC',
+		));
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'sort'=>$sort,
 		));
+	}
+	/**
+	 * Sort data according to some criteria
+	 */
+	public function sort(){
+		$sort=new CSort("Registrations");
+		$sort->attributes = array(
+			'fistname',
+			'lastname',
+			'town',
+			'relatedcountry',
+			'province',
+			);
+
+	}
+	public function deletions(){
+        if (isset($_POST['ids'])) {
+            var_dump($_POST['ids']);
+            $array=explode(',', $_POST['theIds']);
+			foreach($array as $item){
+				$model=Registrations::model()->findByPk($item);
+            if ($model) {
+                $model->delete();
+            }
+			}
+            
+        }
+
 	}
 
 	/**

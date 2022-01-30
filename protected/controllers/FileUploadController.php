@@ -50,7 +50,7 @@ class FileUploadController extends Controller
 					
 				}
 				
-				var_dump($registration); die('Model values');
+				// var_dump($registration); die('Model values');
 				
 				
 

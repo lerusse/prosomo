@@ -8,8 +8,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Registrations', 'url'=>array('index')),
-	array('label'=>'Create Registrations', 'url'=>array('create')),
+	array('label'=>'Liste des enregistrements', 'url'=>array('index')),
+	array('label'=>'Créer un enregistrement', 'url'=>array('create')),
 	array('label'=>'Téléverser', 'url'=>array('/fileUpload/index')),
 );
 
@@ -37,7 +37,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 <?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(
-	'model'=>$model,
+	'model'=>$model
 )); ?>
 </div><!-- search-form -->
 
@@ -45,21 +45,82 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'id'=>'registrations-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
+
 	'columns'=>array(
-		'id',
-		'lastname',
-		'fisrtname',
-		'email',
-		'phone',
-		'town',
-		/*
-		'province',
-		'country',
-		'firstcomment',
-		'secondcomment',
-		*/
+		array(
+			'selectableRows'=>2,
+			'class'=>'CCheckBoxColumn',
+			'id'=>'selections' // the columnID for getChecked
+		),
+		
+		array(
+			'name'=>'lastname',
+			'value'=>'$data->lastname',
+			'filter'=>false,
+		),
+		array(
+			'name'=>'fisrtname',
+			'value'=>'$data->fisrtname',
+			'filter'=>false,
+		),
+		array(
+			'name'=>'email',
+			'value'=>'$data->email',
+			'filter'=>false,
+		),
+		array(
+			'name'=>'phone',
+			'value'=>'$data->phone',
+			'filter'=>false,
+		),
+		array(
+			'name'=>'postalcode',
+			'value'=>'$data->postalcode',
+			'filter'=>false,
+		),
+
+		array(
+			'name'=>'town',
+			'value'=>'$data->town',
+		),
+		array(
+			'name'=>'province',
+			'value'=>'$data->province',
+		),
+		
+	
+		array(
+			'name'=>'country',
+			'value'=>'$data->relatedcountry->nicename',
+			'htmlOptions'=>array('maxlength'=>'60',)
+			
+			),
 		array(
 			'class'=>'CButtonColumn',
 		),
 	),
-)); ?>
+)); 
+echo CHtml::ajaxSubmitButton(
+	'Supprimer', Yii::app()->createUrl('registrations/deletions'),
+		
+        array(
+           'type'=>'POST',
+          
+           'data'=>'js:{ids : $.fn.yiiGridView.getChecked("registrations-grid","selections").toString()}',
+		   'beforeSend'=>'js:function(){
+			var response=confirm("Voulez vous vraiment supprimer les données ?")
+			if(!response){
+				return false
+			}
+        }',   
+		'success' => 'js:function(data){
+			$.fn.yiiGridView.update("registrations-grid");
+			}' 
+		),
+		array(
+			'class' => 'btn btn-delete',
+		)
+
+   );
+?>
+

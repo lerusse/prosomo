@@ -9,27 +9,27 @@
 	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('lastname')); ?>:</b>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('Prénom')); ?>:</b>
 	<?php echo CHtml::encode($data->lastname); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('fisrtname')); ?>:</b>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('Nom')); ?>:</b>
 	<?php echo CHtml::encode($data->fisrtname); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('email')); ?>:</b>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('Courriel')); ?>:</b>
 	<?php echo CHtml::encode($data->email); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('phone')); ?>:</b>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('Téléphone')); ?>:</b>
 	<?php echo CHtml::encode($data->phone); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('town')); ?>:</b>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('Ville')); ?>:</b>
 	<?php echo CHtml::encode($data->town); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('province')); ?>:</b>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('Province')); ?>:</b>
 	<?php echo CHtml::encode($data->province); ?>
 	<br />
 

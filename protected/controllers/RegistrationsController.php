@@ -125,7 +125,9 @@ class RegistrationsController extends Controller
 	 */
 	public function actionIndex()
 	{
+		
 		$dataProvider=new CActiveDataProvider('Registrations');
+		
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -144,6 +146,18 @@ class RegistrationsController extends Controller
 		$this->render('admin',array(
 			'model'=>$model,
 		));
+	}
+	/**
+	 * Delete a list of registrations selected from the admin view.
+	 */
+	public function actionDeletions()
+	{
+		if(isset($_POST['ids'])){
+			$items=explode(',', $_POST['ids']);
+			foreach($items as $item){
+				$this->loadModel($item)->delete();
+			}
+		}
 	}
 
 	/**
