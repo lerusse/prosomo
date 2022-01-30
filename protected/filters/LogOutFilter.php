@@ -1,3 +1,4 @@
+<?php
 // Copyright 2022 pat
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,3 +13,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+class LogOutFilter extends CFilter
+{
+    protected function preFilter($filterChain)
+    {
+        // La logique à appliquer avant que l'action soit exécutée
+        return true; // false si l'action ne doit pas être exécuté
+    }
+ 
+    protected function postFilter($filterChain)
+    {
+        // La logique à appliquer après que l'action soit exécutée
+    }
+}

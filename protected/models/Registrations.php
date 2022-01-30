@@ -36,7 +36,7 @@ class Registrations extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('lastname, fisrtname, email, phone, town, province, postalcode, country', 'required'),
+			array('lastname, fisrtname, email, phone, town, province, postalcode', 'required'),
 			array('lastname, fisrtname', 'length', 'max'=>30),
 			array('email, town, province', 'length', 'max'=>50),
 			array('phone', 'length', 'max'=>15),
@@ -44,7 +44,7 @@ class Registrations extends CActiveRecord
 			array('firstcomment, secondcomment', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array(' lastname, fisrtname, email', 'safe', 'on'=>'search'),
+			array(' lastname, fisrtname, email , relatedcountry', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -77,6 +77,7 @@ class Registrations extends CActiveRecord
 			'country' => 'Pays',
 			'firstcomment' => 'Commentaire 1',
 			'secondcomment' => 'Commentaire 2',
+			'relatedcountry' => 'Pays',
 		);
 	}
 
@@ -97,6 +98,7 @@ class Registrations extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
+		
 
 		// $criteria->compare('id',$this->id);
 		// $criteria->with=array('relatedcountry');
@@ -104,7 +106,8 @@ class Registrations extends CActiveRecord
 		$criteria->compare('lastname',$this->lastname,true);
 		$criteria->compare('fisrtname',$this->fisrtname,true);
 		$criteria->compare('email',$this->email,true);
-		$criteria->compare('country',$this->relatedcountry,true);
+
+		$criteria->compare('nicename',$this->relatedcountry,true);
 		// $criteria->compare('phone',$this->phone,true);
 		// $criteria->compare('town',$this->town,true);
 		// $criteria->compare('province',$this->province,true);
@@ -121,7 +124,7 @@ class Registrations extends CActiveRecord
 		'fisrtname',
 		'town',
 		'province',
-		'country' => array(
+		'relatedcountry' => array(
 		'asc' => 'country',
 		'desc' => 'country DESC',
 		));
@@ -139,7 +142,7 @@ class Registrations extends CActiveRecord
 			'fistname',
 			'lastname',
 			'town',
-			'relatedcountry',
+			'country',
 			'province',
 			);
 
