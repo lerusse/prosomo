@@ -25,6 +25,12 @@ $('.search-form form').submit(function(){
 	return false;
 });
 ");
+
+Yii::app()->clientScript->registerScript('show', "
+$('tbody tr').click(function(){
+	$('#firstcomment').prop('aria-hidden',false);
+});
+");
 ?>
 
 <h1>Manage Registrations</h1>
@@ -40,6 +46,19 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'model'=>$model
 )); ?>
 </div><!-- search-form -->
+<div class="modal fade" id="firstcomment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+	  <?php	echo $model->firstcomment?>
+      </div>
+    </div>
+  </div>
+</div>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'registrations-grid',
@@ -98,8 +117,20 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		array(
 			'class'=>'CButtonColumn',
 		),
+		array(
+			
+			'value'=>'$data->id',
+			'htmlOptions'=>array(
+				'type'=>'img', 
+				'class'=>'"accordion_icon fa fa-plus',
+				'data-toggle'=>'collapse',
+				'data-target'=> '$data->id',				
+				)
+			
+		),
 	),
 )); 
+
 echo CHtml::ajaxSubmitButton(
 	'Supprimer', Yii::app()->createUrl('registrations/deletions'),
 		
