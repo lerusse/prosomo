@@ -45,14 +45,14 @@ $('tbody td .oi').click(function(e){
 	console.log(clickable)
 	const additionnalRow= $('<tr class=\"secondcomment\" ><td colspan=\"11\" style=\"text-align: right;\"></td></tr>')
 	const data=($(additionnalRow).children().last())[0]
-	if(clickable.hasClass('oi-arrow-circle-bottom')){
-		$(clickable).removeClass('oi-arrow-circle-bottom')
-		$(clickable).addClass('oi-arrow-circle-right')	
+	if(clickable.hasClass('oi-plus')){
+		$(clickable).removeClass('oi-plus')
+		$(clickable).addClass('oi-minus')	
 		$(data).html(content)
 		currentRow.after(additionnalRow.get(0));
 	}else{
-		$(clickable).removeClass('oi-arrow-circle-right')
-		$(clickable).addClass('oi-arrow-circle-bottom')
+		$(clickable).removeClass('oi-minus')
+		$(clickable).addClass('oi-plus')
 		$(additionnalRow.get(0)).html('')
 		$(currentRow).next().remove();
 	}
@@ -168,7 +168,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		array(
 			'type'=>'raw',			
             'value' => function ($data) {
-				return '<span class="oi oi-arrow-circle-bottom"></span>';
+				return '<span class="oi oi-plus"></span>';
 			}
 		),
 		
