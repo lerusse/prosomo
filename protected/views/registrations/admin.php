@@ -24,13 +24,40 @@ $('.search-form form').submit(function(){
 	});
 	return false;
 });
-");
+", CClientScript::POS_END);
 
-Yii::app()->clientScript->registerScript('show', "
-$('tbody tr').click(function(){
-	$('#firstcomment').prop('aria-hidden',false);
+Yii::app()->clientScript->registerScript('showFirstComment', "
+$('tbody tr .checkbox-column').click(function(){
+	const value=$(this).closest('tr').data('firstcomment')
+	$('#modalbody').html(value)
+	$('#firstcomment').modal();
 });
-");
+", CClientScript::POS_END);
+
+Yii::app()->clientScript->registerScript('secondFirstComment', "
+$('tbody td .oi').click(function(e){
+	
+	let currentRow= ($(this).closest('tr'))[0]
+	
+	let clickable= ($(($(currentRow).children().last())[0]).children().last())
+	
+	const content=$(currentRow).data('secondcomment')
+	console.log(clickable)
+	const additionnalRow= $('<tr class=\"secondcomment\" ><td colspan=\"11\" style=\"text-align: right;\"></td></tr>')
+	const data=($(additionnalRow).children().last())[0]
+	if(clickable.hasClass('oi-arrow-circle-bottom')){
+		$(clickable).removeClass('oi-arrow-circle-bottom')
+		$(clickable).addClass('oi-arrow-circle-right')	
+		$(data).html(content)
+		currentRow.after(additionnalRow.get(0));
+	}else{
+		$(clickable).removeClass('oi-arrow-circle-right')
+		$(clickable).addClass('oi-arrow-circle-bottom')
+		$(additionnalRow.get(0)).html('')
+		$(currentRow).next().remove();
+	}
+});
+", CClientScript::POS_END);
 ?>
 
 <h1>Manage Registrations</h1>
@@ -46,19 +73,30 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'model'=>$model
 )); ?>
 </div><!-- search-form -->
-<div class="modal fade" id="firstcomment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-	  <?php	echo $model->firstcomment?>
+ <!-- The Modal -->
+ <div class="modal fade" id="firstcomment">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h6 class="modal-title">Commentaire 1</h6>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+        
+        <!-- Modal body -->
+        <p class="modal-body" id="modalbody" style="overflow: auto;">
+          
+        </p>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+        </div>
+        
       </div>
     </div>
   </div>
-</div>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'registrations-grid',
@@ -114,21 +152,28 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 			'htmlOptions'=>array('maxlength'=>'60',)
 			
 			),
+		// array(
+		// 	'name'=>'firstcomment',
+		// 	'visible'=>false,
+		// 	'value'=>'$data->firstcomment',
+		// 	'htmlOptions'=>array(
+		// 		'maxlength'=>'60',
+		// 		'display'=>'none',
+		// 		 )
+			
+		// 	),
 		array(
 			'class'=>'CButtonColumn',
 		),
 		array(
-			
-			'value'=>'$data->id',
-			'htmlOptions'=>array(
-				'type'=>'img', 
-				'class'=>'"accordion_icon fa fa-plus',
-				'data-toggle'=>'collapse',
-				'data-target'=> '$data->id',				
-				)
-			
+			'type'=>'raw',			
+            'value' => function ($data) {
+				return '<span class="oi oi-arrow-circle-bottom"></span>';
+			}
 		),
+		
 	),
+	'rowHtmlOptionsExpression' => '[ "data-firstcomment" => $data->firstcomment, "data-secondcomment" => $data->firstcomment,]'
 )); 
 
 echo CHtml::ajaxSubmitButton(
