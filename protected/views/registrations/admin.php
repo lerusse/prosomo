@@ -34,7 +34,7 @@ $('tbody tr .checkbox-column').click(function(){
 });
 ", CClientScript::POS_END);
 
-Yii::app()->clientScript->registerScript('secondFirstComment', "
+Yii::app()->clientScript->registerScript('ShowSecondComment', "
 $('tbody td .oi').click(function(e){
 	
 	let currentRow= ($(this).closest('tr'))[0]
@@ -50,6 +50,7 @@ $('tbody td .oi').click(function(e){
 		$(clickable).addClass('oi-minus')	
 		$(data).html(content)
 		currentRow.after(additionnalRow.get(0));
+	
 	}else{
 		$(clickable).removeClass('oi-minus')
 		$(clickable).addClass('oi-plus')

@@ -70,15 +70,23 @@ class RegistrationsController extends Controller
 		if(isset($_POST['Registrations']))
 		{
 			$model->attributes=$_POST['Registrations'];
-			if($model->save())
+			if($model->save()){
+				Yii::log('info', CLogger::LEVEL_INFO, "Form submitted with the following information:".PHP_EOL."First Name: ".$model->lastname.PHP_EOL."Last Name: ".$model->fisrtname.PHP_EOL."Email: ".$model->email.PHP_EOL."---------------------------------------------");
 				$this->redirect(array('view','id'=>$model->id));
+			}
+			
+				
 		}
 
-		$countries=Countries::list();	
-		// $transformedCountries=ArrayHelper::map($countries,'id','nicename'); 
+		$countries=Countries::list();
+		$transformedCountries=[]; 
+		foreach($countries as $el){
+			$transformedCountries[$el->id]=$el->nicename;
+		}
+		// var_dump($transformedCountries); die ("Helo");
 		$this->render('create',array(
 			'model'=>$model,
-			"countries"=>$countries,
+			"countries"=>$transformedCountries,
 		));
 	}
 
@@ -186,5 +194,11 @@ class RegistrationsController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
+	}
+	protected function logOnSecondComment(){
+
+		$user =Yii::app()->user->id;
+		Yii::log('info', CLogger::LEVEL_INFO, "Administrator :".$user." displayed the second comment from action: ".Yii::app()->urlManager->parseUrl(Yii::app()->request));
+		
 	}
 }

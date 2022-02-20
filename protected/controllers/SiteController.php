@@ -92,8 +92,11 @@ class SiteController extends Controller
 			$model->attributes=$_POST['LoginForm'];
 			// validate user input and redirect to the previous page if valid
 			if($model->validate() && $model->login())
+
+			    Yii::log('info', CLogger::LEVEL_INFO, "Administrator :".$model->username." logged in ! This was from action: ".Yii::app()->urlManager->parseUrl(Yii::app()->request));
 				$this->redirect(Yii::app()->user->returnUrl);
 		}
+		
 		// display the login form
 		$this->render('login',array('model'=>$model));
 	}
@@ -103,7 +106,12 @@ class SiteController extends Controller
 	 */
 	public function actionLogout()
 	{
+		$user =Yii::app()->user->id;
 		Yii::app()->user->logout();
+		Yii::log('info', CLogger::LEVEL_INFO, "Administrator :".$user." logged out ! This was from action: ".Yii::app()->urlManager->parseUrl(Yii::app()->request));
 		$this->redirect(Yii::app()->homeUrl);
+	}
+	private function logInfo($message, $adminLogin){
+		
 	}
 }

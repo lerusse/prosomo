@@ -62,7 +62,20 @@ return array(
 			'routes'=>array(
 				array(
 					'class'=>'CFileLogRoute',
-					'levels'=>'error, warning',
+					'levels'=>'info',
+					'logFile'=>'logInfo',
+					// 'filter'=>'CLogFilter',
+				),
+				array(
+					'class'=>'CFileLogRoute',
+					'levels'=>'error',
+					'logFile'=>'logError',
+					'filter'=>array(
+						'class'=>'CLogFilter',
+						'logUser' => true,
+						'logVars' => false,
+					),
+					
 				),
 				// uncomment the following to show log messages on web pages
 				/*

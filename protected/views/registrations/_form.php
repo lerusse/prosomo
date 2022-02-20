@@ -57,11 +57,14 @@
 
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'Pays'); ?>
-		<?php echo $form->dropDownList($model,'country', [
-			'Nom'=>'Patrick',
-			"Prenom"=>'Beaudouin',
-		], array( 'class'=>"form-control")); ?>
+		<?php echo $form->dropDownList($model,'country',$countries, array( 'class'=>"form-control")); ?>
 		<?php echo $form->error($model,'country'); ?>
+	</div>
+
+	<div class="form-group">
+		<?php echo $form->labelEx($model,'Code Postal'); ?>
+		<?php echo $form->textField($model,'postalcode',array( 'class'=>"form-control")); ?>
+		<?php echo $form->error($model,'postalcode'); ?>
 	</div>
 
 	<div class="form-group">
