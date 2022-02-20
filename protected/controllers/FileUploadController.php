@@ -32,33 +32,48 @@ class FileUploadController extends Controller
 				
 				//1.1 Set Registrations Model from input
 				$registration->setAttributes($modelValues);
-				$country=Countries::findByNiceName( $registration->country);
+				$country=null;
+				try{
+					$country=Countries::findByNiceName( $registration->country);
+				}catch(Exception $ex){
+					Yii::log('error', CLogger::LEVEL_ERROR, "An error occured while importing the file at line ".($counter+1).": Unavailable country ".PHP_EOL."---------------------------------------------");
+					continue;
+				}
+				
 				//1.2 Validate the model
 				if($country!==null&&$registration->validate()){
 				//1.3 If the model is ok I save it to the database 
+					
+					// set the country ID
 					$registration->country=$country->id;
-					$registration->save();
+					// 1.3.1 does the model exist inside database?
+					if($registration->checkEmailExist()){
+						// Enabling update
+						$registration-> isNewRecord =false;
+					}
+					try{
+						$registration->save();
+					}catch(Exception $ex){
+						Yii::log('error', CLogger::LEVEL_ERROR, "An error occured while importing the file at line [".($counter+1)."]===============> Country not available ".PHP_EOL."---------------------------------------------");
+						continue;
+					}
+
+					
+					
 				}else{
 				//1.3 Get all errors for the current items				
 				$errors=$registration->getErrors();
 				//1.3.1 write to log while specifying line
-				foreach($errors as $key=>$value){
-					
+				Yii::log('error', CLogger::LEVEL_ERROR, "An error occured while importing the file at line ".($counter+1)." ".PHP_EOL."---------------------------------------------");
+								
 				}
-				
-				
-					
-				}
-				
-				// var_dump($registration); die('Model values');
-				
-				
-
 				
 			}
 			$counter++;
 		  }
+		 
 		}
+		
 		}
 		$this->render('index', ["model"=>$model]);
 	}

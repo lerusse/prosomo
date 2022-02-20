@@ -70,11 +70,11 @@ return array(
 					'class'=>'CFileLogRoute',
 					'levels'=>'error',
 					'logFile'=>'logError',
-					'filter'=>array(
-						'class'=>'CLogFilter',
-						'logUser' => true,
-						'logVars' => false,
-					),
+					// 'filter'=>array(
+					// 	'class'=>'CLogFilter',
+					// 	'logUser' => true,
+					// 	'logVars' => false,
+					// ),
 					
 				),
 				// uncomment the following to show log messages on web pages

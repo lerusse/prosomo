@@ -172,4 +172,10 @@ class Registrations extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+	/**
+	 * Returns a boolean indicating if a model with the model provided as parameter exists in the database
+	 */
+	public  function checkEmailExist(){
+			return  self::model()->exists('email=:email', array(':email'=>$this->email));
+	}
 }

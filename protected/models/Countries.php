@@ -119,7 +119,7 @@ class Countries extends CActiveRecord
 		return self::model()->findAll($criteria);
 	}
 
-	public static function findByNiceName($nicename){		
+	public static function findByNiceName($nicename) {		
 		$criteria=new CDbCriteria;
 		$criteria->select='id';
 		$criteria->condition='nicename=:nicename';
@@ -127,4 +127,5 @@ class Countries extends CActiveRecord
 		
 		return self::model()->find($criteria);
 	}
+	
 }
