@@ -23,8 +23,9 @@ class UserIdentity extends CUserIdentity
         if ($record===null) {
             $this->errorCode=self::ERROR_USERNAME_INVALID;
         }
-        else if($this->password!=$record->password){
-        // elseif (!CPasswordHelper::verifyPassword($this->password, $record->password)) {
+        // else if($this->password!=$record->password){
+        
+        elseif (!CPasswordHelper::verifyPassword($this->password, $record->password)) {
             $this->errorCode=self::ERROR_PASSWORD_INVALID;
         } else {
             // $this->_id=$record->id;
