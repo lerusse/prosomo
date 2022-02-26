@@ -40,8 +40,13 @@ class Registrations extends CActiveRecord
 			array('lastname, fisrtname', 'length', 'max'=>30),
 			array('email, town, province', 'length', 'max'=>50),
 			array('phone', 'length', 'max'=>15),
+			array('email', 'email'),
+			array('email', 'unique'),
 			array('country', 'length', 'max'=>50),
 			array('firstcomment, secondcomment', 'safe'),
+			array('postalcode', 'match', 'message'=>'Le code postal doit respecter le format canadien !', 'pattern'=>"/^[A-Z]\d[A-Z]\s\d[A-Z]\d$/"),
+			array('phone', 'match', 'message'=>'numéro non conforme au format canadien', 'pattern'=>"/^[(]\d{3}[)]\s\d{3}[-]\d{4}$/"),
+
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array(' lastname, fisrtname, email , relatedcountry', 'safe', 'on'=>'search'),
