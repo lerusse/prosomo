@@ -1,7 +1,7 @@
 <?php
 /* @var $this RegistrationsController */
 /* @var $model Registrations */
-
+$this->layout='admin';
 $this->breadcrumbs=array(
 	'Registrations'=>array('index'),
 	'Manage',
@@ -68,7 +68,7 @@ You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&g
 or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
 </p>
 
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
+<?php echo CHtml::link('Recherche avançée','#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(
 	'model'=>$model
@@ -103,7 +103,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'id'=>'registrations-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
-
+	'htmlOptions'=> array('class'=>"table table-sm table-condensed table-hover table-striped table-responsive"),
 	'columns'=>array(
 		array(
 			'selectableRows'=>2,
@@ -165,6 +165,22 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		// 	),
 		array(
 			'class'=>'CButtonColumn',
+		// 	array(
+
+		// 		"viewButtonOptions"=>array(
+		// 			"htmlOptions"=>array(
+						
+		// 				'class'=>'oi oi-plus',
+		// 			)
+		// 		),
+		// 	// 	"updateButtonOptions"=>array(
+
+		// 	// 	),
+		// 	// 	"deleteButtonOptions"=>array(
+
+		// 	// 	),
+		// 	// ),
+		
 		),
 		array(
 			'type'=>'raw',			
@@ -195,7 +211,7 @@ echo CHtml::ajaxSubmitButton(
 			}' 
 		),
 		array(
-			'class' => 'btn btn-delete',
+			'class' => 'btn btn-danger',
 		)
 
    );

@@ -3,7 +3,7 @@
 
 <div class="row">
 
-<div class="col-md-3  hidden-sm">
+<div class="col-md-2  hidden-sm">
 	<?php
 		if(!Yii::app()->user->isGuest){
 			$this->beginWidget('zii.widgets.CPortlet', array(
@@ -19,7 +19,7 @@
 	?>
 </div>
 
-<div class="col-md-6 ">
+<div class="col-md-10 ">
 	<div id="content">
 		<?php echo $content; ?>
 	</div><!-- content -->

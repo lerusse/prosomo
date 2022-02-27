@@ -15,54 +15,54 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Les champ marqués  <span class="required">*</span> sont oubligatoires.</p>
+	<p class="note">Les champ marqués  <span class="required">*</span> sont obligatoires.</p>
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="form-group">
-	<?php echo $form->labelEx($model,'Prénom'); ?>
+	<div class="form-group" >
+	<?php echo $form->labelEx($model,'Prénom <span class="required">*</span>'); ?>
 		<?php echo $form->textField($model,'lastname',array( 'class'=>"form-control")); ?>
 		<?php echo $form->error($model,'lastname'); ?>
 	</div>		
 
 	<div class="form-group">
-		<?php echo $form->labelEx($model,'Nom'); ?>
+		<?php echo $form->labelEx($model,'Nom <span class="required">*</span> '); ?>
 		<?php echo $form->textField($model,'fisrtname',array( 'class'=>"form-control")); ?>
 		<?php echo $form->error($model,'fisrtname'); ?>
 	</div>
 
 	<div class="form-group">
-		<?php echo $form->labelEx($model,'Courriel'); ?>
+		<?php echo $form->labelEx($model,'Courriel <span class="required">*</span> '); ?>
 		<?php echo $form->textField($model,'email',array( 'class'=>"form-control")); ?>
 		<?php echo $form->error($model,'email'); ?>
 	</div>
 
 	<div class="form-group">
-		<?php echo $form->labelEx($model,'Téléphone'); ?>
+		<?php echo $form->labelEx($model,'Téléphone <span class="required">*</span> '); ?>
 		<?php echo $form->textField($model,'phone',array('class'=>"form-control")); ?>
 		<?php echo $form->error($model,'phone'); ?>
 	</div>
 
 	<div class="form-group">
-		<?php echo $form->labelEx($model,'Ville'); ?>
+		<?php echo $form->labelEx($model,'Ville <span class="required">*</span> '); ?>
 		<?php echo $form->textField($model,'town',array( 'class'=>"form-control")); ?>
 		<?php echo $form->error($model,'town'); ?>
 	</div>
 
 	<div class="form-group">
-		<?php echo $form->labelEx($model,'Province'); ?>
+		<?php echo $form->labelEx($model,'Province <span class="required">*</span> '); ?>
 		<?php echo $form->textField($model,'province',array( 'class'=>"form-control")); ?>
 		<?php echo $form->error($model,'province'); ?>
 	</div>
 
 	<div class="form-group">
-		<?php echo $form->labelEx($model,'Pays'); ?>
+		<?php echo $form->labelEx($model,'Pays <span class="required">*</span> '); ?>
 		<?php echo $form->dropDownList($model,'country',$countries, array( 'class'=>"form-control")); ?>
 		<?php echo $form->error($model,'country'); ?>
 	</div>
 
 	<div class="form-group">
-		<?php echo $form->labelEx($model,'Code Postal'); ?>
+		<?php echo $form->labelEx($model,'Code Postal <span class="required">*</span> '); ?>
 		<?php echo $form->textField($model,'postalcode',array( 'class'=>"form-control")); ?>
 		<?php echo $form->error($model,'postalcode'); ?>
 	</div>
@@ -79,7 +79,7 @@
 		<?php echo $form->error($model,'secondcomment'); ?>
 	</div>
 
-	<div class="row buttons">
+	<div class="row buttons form-group">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Enregistrer' : 'Modifier', array( 'class'=>"btn btn-primary")); ?>
 	</div>
 
