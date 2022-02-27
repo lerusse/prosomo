@@ -12,7 +12,8 @@ $this->menu=array(
 	array('label'=>'Créer un enregistrement', 'url'=>array('create')),
 	array('label'=>'Téléverser', 'url'=>array('/fileUpload/index')),
 );
-
+$url=Yii::app()->request->baseUrl."/assets/js/manageTab.js";
+Yii::app()->clientScript->registerScriptFile($url, CClientScript::POS_END);  
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
 	$('.search-form').toggle();
@@ -33,6 +34,8 @@ $('tbody tr .checkbox-column').click(function(){
 	$('#firstcomment').modal();
 });
 ", CClientScript::POS_END);
+
+
 
 Yii::app()->clientScript->registerScript('ShowSecondComment', "
 $('tbody td .oi').click(function(e){
