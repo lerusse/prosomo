@@ -195,7 +195,7 @@ class RegistrationsController extends Controller
 			Yii::app()->end();
 		}
 	}
-	public function actionlogOnSecondComment(){
+	public function actionLogOnSecondComment(){
 
 		$user =Yii::app()->user->id;
 		Yii::log('info', CLogger::LEVEL_INFO, "Administrator :".$user." displayed the second comment from action: ".Yii::app()->urlManager->parseUrl(Yii::app()->request));

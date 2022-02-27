@@ -15,7 +15,7 @@
  * @property string $firstcomment
  * @property string $postalcode
  * @property string $secondcomment
- * @property string $relatedcountry
+//  * @property string $relatedcountry
  */
 class Registrations extends CActiveRecord
 {
@@ -43,7 +43,7 @@ class Registrations extends CActiveRecord
 			array('email', 'email'),
 			array('email', 'unique', 'message'=>'Ce courriel est déja utilisé'),
 			array('country', 'length', 'max'=>50),
-			array('firstcomment, secondcomment', 'safe'),
+			array('firstcomment, secondcomment, relatedcountry' , 'safe'),
 			array('postalcode', 'match', 'message'=>'Le code postal doit respecter le format canadien !', 'pattern'=>"/^[A-Z]\d[A-Z]\s?\d[A-Z]\d$/"),
 			array('phone', 'match', 'message'=>'numéro non conforme au format canadien', 'pattern'=>"/^[(]\d{3}[)]\s?\d{3}[-]\d{4}$/"),
 
@@ -107,15 +107,17 @@ class Registrations extends CActiveRecord
 
 		// $criteria->compare('id',$this->id);
 		// $criteria->with=array('relatedcountry');
-		$criteria->with=array('relatedcountry'=> array('select'=>'nicename','together'=>true));
-		$criteria->compare('lastname',$this->lastname,true);
-		$criteria->compare('fisrtname',$this->fisrtname,true);
-		$criteria->compare('email',$this->email,true);
 
-		$criteria->compare('nicename',$this->relatedcountry,true);
+
+		$criteria->with=array('relatedcountry'=> array('select'=>'nicename','together'=>true));		
+		// $criteria->compare('lastname',$this->lastname,true);
+		// $criteria->compare('fisrtname',$this->fisrtname,true);
+		// $criteria->compare('email',$this->email,true);
+		$criteria->compare('nicename',$this->relatedcountry, true);
+
 		// $criteria->compare('phone',$this->phone,true);
-		// $criteria->compare('town',$this->town,true);
-		// $criteria->compare('province',$this->province,true);
+		$criteria->compare('town',$this->town,true);
+		$criteria->compare('province',$this->province,true);
 		// $relations=$this->relations(); var_dump($relations['']);
 		// var_dump($this);
 		// $relations=$this->relations(); var_dump($this->relatedcountry); die();
@@ -125,14 +127,16 @@ class Registrations extends CActiveRecord
 		// $criteria->compare('secondcomment',$this->secondcomment,true);
 		$sort = new CSort;
 		$sort->attributes = array(
+		'relatedcountry' => array(
+			'asc' => 'nicename',
+			'desc' => 'nicename DESC',
+		),
 		'lastname',
 		'fisrtname',
 		'town',
 		'province',
-		'relatedcountry' => array(
-		'asc' => 'country',
-		'desc' => 'country DESC',
-		));
+		);
+		
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 			'sort'=>$sort,
@@ -142,7 +146,7 @@ class Registrations extends CActiveRecord
 	 * Sort data according to some criteria
 	 */
 	public function sort(){
-		$sort=new CSort("Registrations");
+		$sort=new CSort(get_class($this));
 		$sort->attributes = array(
 			'fistname',
 			'lastname',

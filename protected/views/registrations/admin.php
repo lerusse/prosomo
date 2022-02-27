@@ -106,7 +106,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'id'=>'registrations-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
-	'htmlOptions'=> array('class'=>"table table-sm table-condensed table-hover table-striped table-responsive"),
+	'htmlOptions'=> array('class'=>"table table-sm table-striped table-responsive"),
 	'columns'=>array(
 		array(
 			'selectableRows'=>2,
@@ -152,40 +152,17 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	
 		array(
 			'name'=>'relatedcountry',
-			'value'=>'$data->relatedcountry->nicename',
-			'htmlOptions'=>array('maxlength'=>'60',)
+			'value'=>'$data->relatedcountry["nicename"]',
 			
 			),
-		// array(
-		// 	'name'=>'firstcomment',
-		// 	'visible'=>false,
-		// 	'value'=>'$data->firstcomment',
-		// 	'htmlOptions'=>array(
-		// 		'maxlength'=>'60',
-		// 		'display'=>'none',
-		// 		 )
-			
-		// 	),
+	
 		array(
+			'header' => 'Actions',
 			'class'=>'CButtonColumn',
-		// 	array(
-
-		// 		"viewButtonOptions"=>array(
-		// 			"htmlOptions"=>array(
-						
-		// 				'class'=>'oi oi-plus',
-		// 			)
-		// 		),
-		// 	// 	"updateButtonOptions"=>array(
-
-		// 	// 	),
-		// 	// 	"deleteButtonOptions"=>array(
-
-		// 	// 	),
-		// 	// ),
-		
+	
 		),
 		array(
+			'header' => 'Plus',
 			'type'=>'raw',			
             'value' => function ($data) {
 				return '<span class="oi oi-plus"></span>';
@@ -193,7 +170,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		),
 		
 	),
-	'rowHtmlOptionsExpression' => '[ "data-firstcomment" => $data->firstcomment, "data-secondcomment" => $data->firstcomment,]'
+	'rowHtmlOptionsExpression' => '[ "data-firstcomment" => $data->firstcomment, "data-secondcomment" => $data->secondcomment,]'
 )); 
 
 echo CHtml::ajaxSubmitButton(
